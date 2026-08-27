@@ -1,499 +1,1157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Birthday Wishlist 🎂</title>
+<title>YAKTON Wishlist</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-      text-align: center;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .container {
-      max-width: 650px;
-      margin: 70px auto;
-      padding: 20px;
-    }
+body {
+  margin: 0;
+  background: #070707;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
 
-    .card {
-      background: white;
-      padding: 35px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    }
+/* =========================
+   HOME SCREEN
+========================= */
 
-    .gift {
-      font-size: 70px;
-    }
+#home {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, #24104d 0, transparent 35%),
+    radial-gradient(circle at 80% 70%, #062f49 0, transparent 35%),
+    #050505;
+}
 
-    h1 {
-      font-size: 36px;
-    }
+.grid {
+  position: absolute;
+  inset: 0;
 
-    .item {
-      background: #f1f1f1;
-      padding: 18px;
-      margin: 15px 0;
-      border-radius: 12px;
-      text-align: left;
-    }
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
 
-    button {
-      border: none;
-      padding: 15px 25px;
-      border-radius: 10px;
-      background: #111;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+  background-size: 50px 50px;
 
-    button:hover {
-      opacity: 0.8;
-    }
+  transform: perspective(500px) rotateX(60deg) scale(1.8);
+  transform-origin: bottom;
+}
 
-    /* TERMS */
+.homeContent {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+}
 
-    #terms {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      z-index: 10;
-    }
+.logo {
+  font-size: clamp(60px, 14vw, 130px);
+  font-weight: 900;
+  letter-spacing: 12px;
 
-    .terms-box {
-      background: white;
-      max-width: 500px;
-      width: 100%;
-      padding: 30px;
-      border-radius: 18px;
-      text-align: left;
-    }
+  background: linear-gradient(
+    90deg,
+    #ff00cc,
+    #7a00ff,
+    #00c8ff,
+    #00ff88
+  );
 
-    .terms-box h2 {
-      text-align: center;
-    }
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 
-    .accept {
-      width: 100%;
-      background: #28a745;
-      margin-top: 10px;
-    }
+  text-shadow:
+    0 0 30px rgba(0,200,255,.25);
+}
 
-    /* YAKTON LOADING SCREEN */
+.subtitle {
+  color: #aaa;
+  font-family: monospace;
+  letter-spacing: 3px;
+  margin-bottom: 35px;
+}
 
-    #yaktonScreen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #050505;
-      color: white;
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      overflow: hidden;
-    }
+.homeButtons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-    .yakton {
-      font-family: Arial Black, Arial, sans-serif;
-      font-size: clamp(55px, 15vw, 150px);
-      font-weight: 900;
-      letter-spacing: 8px;
+button {
+  border: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  background: #171717;
+  border: 1px solid #333;
+  transition: .2s;
+}
 
-      color: white;
+button:hover {
+  transform: translateY(-2px);
+  border-color: #00c8ff;
+  box-shadow: 0 0 20px rgba(0,200,255,.25);
+}
 
-      animation:
-        flicker 0.12s infinite alternate,
-        glitch 0.25s infinite;
-    }
+.primary {
+  background: linear-gradient(90deg,#7a00ff,#00c8ff);
+  border: none;
+}
 
-    /* Flickering letters */
+/* =========================
+   CREATOR
+========================= */
 
-    @keyframes flicker {
-      0% {
-        opacity: 1;
-      }
+#creator {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #080808;
+}
 
-      20% {
-        opacity: 0.25;
-      }
+.creatorBox {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
 
-      40% {
-        opacity: 1;
-      }
+.creatorBox h1 {
+  font-size: 40px;
+}
 
-      60% {
-        opacity: 0.5;
-      }
+.inputBox {
+  background: #111;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #252525;
+  margin-top: 20px;
+}
 
-      80% {
-        opacity: 1;
-      }
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #050505;
+  color: white;
+  font-size: 15px;
+}
 
-      100% {
-        opacity: 0.7;
-      }
-    }
+.wishlistItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  margin-top: 10px;
+}
 
-    /* Small glitch movement */
+.remove {
+  background: #321010;
+  color: #ff7777;
+}
 
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-      }
+#shareResult {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #101c13;
+  border: 1px solid #1d6930;
+}
 
-      25% {
-        transform: translate(3px, -2px);
-      }
+.shareLink {
+  word-break: break-all;
+  color: #55d9ff;
+  font-family: monospace;
+}
 
-      50% {
-        transform: translate(-3px, 2px);
-      }
+/* =========================
+   TERMS
+========================= */
 
-      75% {
-        transform: translate(2px, 1px);
-      }
+#terms {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.85);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-      100% {
-        transform: translate(0);
-      }
-    }
+.termsBox {
+  width: 100%;
+  max-width: 500px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 0 50px rgba(0,0,0,.8);
+}
 
-    /* Color reveal */
+.termsBox h2 {
+  margin-top: 0;
+}
 
-    .fullColor {
-      animation: colorReveal 1.5s forwards !important;
-    }
+.accept {
+  width: 100%;
+  margin-top: 15px;
+  background: linear-gradient(90deg,#7a00ff,#00c8ff);
+  border: none;
+}
 
-    @keyframes colorReveal {
-      0% {
-        color: white;
-        text-shadow: none;
-      }
+/* =========================
+   YAKTON LOADING
+========================= */
 
-      30% {
-        color: #ff00cc;
-        text-shadow:
-          0 0 10px #ff00cc,
-          0 0 30px #ff00cc;
-      }
+#loading {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #020202;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-      60% {
-        color: #00ccff;
-        text-shadow:
-          0 0 15px #00ccff,
-          0 0 40px #00ccff;
-      }
+.scanlines {
+  position: absolute;
+  inset: 0;
 
-      100% {
-        background: linear-gradient(
-          90deg,
-          #ff00cc,
-          #00ccff,
-          #7a00ff,
-          #ffcc00
-        );
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,.025) 4px
+  );
 
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+  pointer-events: none;
+}
 
-        text-shadow:
-          0 0 15px rgba(0, 200, 255, 0.8);
-      }
-    }
+.loadingTop {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  right: 30px;
 
-    .loadingText {
-      margin-top: 20px;
-      font-family: monospace;
-      font-size: 16px;
-      color: #aaa;
-    }
+  display: flex;
+  justify-content: space-between;
 
-    .percentage {
-      font-family: monospace;
-      margin-top: 8px;
-      color: white;
-    }
+  color: #777;
+  font-family: monospace;
+  font-size: 12px;
+}
 
-    .bar {
-      width: min(500px, 80%);
-      height: 10px;
-      border: 1px solid #555;
-      margin-top: 15px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #111;
-    }
+.yaktonLoading {
+  font-size: clamp(60px, 16vw, 170px);
+  font-weight: 900;
+  letter-spacing: 12px;
+  font-family: Arial Black, Arial, sans-serif;
 
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: white;
-      transition: width 0.1s linear;
-    }
+  color: white;
 
-    .success {
-      display: none;
-      margin-top: 20px;
-      font-family: monospace;
-      color: #00ff88;
-      font-size: 18px;
-    }
+  animation:
+    flicker .12s infinite alternate,
+    glitch .25s infinite;
+}
 
-  </style>
+@keyframes flicker {
+
+  0% { opacity: 1; }
+  15% { opacity: .2; }
+  30% { opacity: .9; }
+  45% { opacity: .35; }
+  60% { opacity: 1; }
+  75% { opacity: .5; }
+  100% { opacity: .9; }
+
+}
+
+@keyframes glitch {
+
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(4px,-2px);
+  }
+
+  50% {
+    transform: translate(-4px,2px);
+  }
+
+  75% {
+    transform: translate(2px,1px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+
+}
+
+.loadingStatus {
+  margin-top: 20px;
+  font-family: monospace;
+  color: #777;
+}
+
+.loadingBar {
+  width: min(600px,80%);
+  height: 8px;
+  margin-top: 18px;
+
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.loadingProgress {
+  width: 0%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #ff00cc,
+    #7a00ff,
+    #00c8ff,
+    #00ff88
+  );
+
+  box-shadow:
+    0 0 20px #00c8ff;
+}
+
+.percent {
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+/* COLOR REVEAL */
+
+.colorReveal {
+  animation: reveal 1.2s forwards !important;
+}
+
+@keyframes reveal {
+
+  0% {
+    color: white;
+    transform: scale(1);
+  }
+
+  50% {
+    color: #00c8ff;
+    transform: scale(1.05);
+    text-shadow:
+      0 0 30px #00c8ff;
+  }
+
+  100% {
+
+    background: linear-gradient(
+      90deg,
+      #ff00cc,
+      #7a00ff,
+      #00c8ff,
+      #00ff88
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    transform: scale(1.1);
+
+    text-shadow:
+      0 0 35px rgba(0,200,255,.7);
+
+  }
+
+}
+
+/* =========================
+   WISHLIST
+========================= */
+
+#wishlist {
+  display: none;
+  min-height: 100vh;
+  padding: 50px 20px;
+
+  background:
+    radial-gradient(circle at top right,#1d0640,transparent 35%),
+    #070707;
+}
+
+.wishlistBox {
+  max-width: 800px;
+  margin: auto;
+}
+
+.wishlistHeader {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.wishlistHeader h1 {
+  font-size: 45px;
+}
+
+.wishCard {
+  background: #111;
+  border: 1px solid #292929;
+  padding: 22px;
+  border-radius: 15px;
+  margin: 15px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.wishCard a {
+  color: #55d9ff;
+  text-decoration: none;
+}
+
+.wishNumber {
+  color: #777;
+  font-family: monospace;
+}
+
+@media(max-width:600px) {
+
+  .wishlistItem {
+    grid-template-columns: 1fr;
+  }
+
+  .wishCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- BIRTHDAY PAGE -->
 
-  <div class="container">
+<!-- =========================
+     HOME
+========================= -->
 
-    <div class="card">
+<section id="home">
 
-      <div class="gift">🎂🎁</div>
+  <div class="grid"></div>
 
-      <h1>My Birthday Wishlist</h1>
+  <div class="homeContent">
 
-      <p>
-        Here's my totally legitimate birthday wishlist 👀
-      </p>
-
-      <div class="item">
-        🎁 <strong>Birthday Present</strong>
-        <br>
-        <small>Something I REALLY want...</small>
-      </div>
-
-      <div class="item">
-        🛒 <strong>Amazon Surprise</strong>
-        <br>
-        <small>You probably shouldn't click this...</small>
-      </div>
-
-      <button onclick="showTerms()">
-        🎁 View Birthday Surprise
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- TERMS POPUP -->
-
-  <div id="terms">
-
-    <div class="terms-box">
-
-      <h2>Terms of Birthday Service 🎂</h2>
-
-      <p>
-        By accepting these completely serious terms, you agree that:
-      </p>
-
-      <ul>
-        <li>It is my birthday.</li>
-        <li>I deserve a present.</li>
-        <li>You accept the birthday consequences.</li>
-        <li>You cannot complain about what happens next.</li>
-      </ul>
-
-      <p>
-        <strong>Do you accept?</strong>
-      </p>
-
-      <button class="accept" onclick="acceptTerms()">
-        I Accept
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- YAKTON LOADING SCREEN -->
-
-  <div id="yaktonScreen">
-
-    <div id="yakton" class="yakton">
+    <div class="logo">
       YAKTON
     </div>
 
-    <div id="loadingText" class="loadingText">
-      INITIALIZING...
+    <div class="subtitle">
+      BIRTHDAY WISHLIST SYSTEM
     </div>
 
-    <div class="bar">
-      <div id="progress" class="progress"></div>
+    <div class="homeButtons">
+
+      <button class="primary" onclick="openCreator()">
+        + CREATE WISHLIST
+      </button>
+
+      <button onclick="loadSharedWishlist()">
+        OPEN SHARED WISHLIST
+      </button>
+
     </div>
 
-    <div id="percentage" class="percentage">
-      0%
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CREATOR
+========================= -->
+
+<section id="creator">
+
+  <div class="creatorBox">
+
+    <button onclick="goHome()">← Home</button>
+
+    <h1>Create Your Wishlist</h1>
+
+    <p style="color:#888">
+      Add items and their links, then generate a shareable wishlist.
+    </p>
+
+    <div id="items"></div>
+
+    <button
+      class="primary"
+      style="margin-top:20px"
+      onclick="addItem()">
+      + Add Item
+    </button>
+
+    <br>
+
+    <button
+      style="margin-top:15px"
+      onclick="generateLink()">
+      🔗 Generate Share Link
+    </button>
+
+
+    <div id="shareResult">
+
+      <strong>YOUR WISHLIST LINK</strong>
+
+      <p class="shareLink" id="shareLink"></p>
+
+      <button onclick="copyLink()">
+        Copy Link
+      </button>
+
     </div>
 
-    <div id="success" class="success">
-      SYSTEM ONLINE ✓
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TERMS
+========================= -->
+
+<div id="terms">
+
+  <div class="termsBox">
+
+    <h2>Birthday Terms 🎂</h2>
+
+    <p>
+      Before viewing this wishlist, you must agree to these
+      extremely important birthday terms:
+    </p>
+
+    <ul>
+
+      <li>You acknowledge that it is someone's birthday.</li>
+
+      <li>You agree that birthday presents are important.</li>
+
+      <li>You accept the YAKTON loading sequence.</li>
+
+      <li>You cannot complain about the surprise.</li>
+
+    </ul>
+
+    <button
+      class="accept"
+      onclick="acceptTerms()">
+
+      I ACCEPT & CONTINUE
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div id="loading">
+
+  <div class="scanlines"></div>
+
+  <div class="loadingTop">
+
+    <span>YAKTON SYSTEM</span>
+
+    <span id="systemCode">
+      SYS-001
+    </span>
+
+  </div>
+
+
+  <div
+    id="yaktonLoading"
+    class="yaktonLoading">
+
+    YAKTON
+
+  </div>
+
+
+  <div
+    id="loadingStatus"
+    class="loadingStatus">
+
+    INITIALIZING SYSTEM...
+
+  </div>
+
+
+  <div class="loadingBar">
+
+    <div
+      id="loadingProgress"
+      class="loadingProgress">
     </div>
 
   </div>
 
 
-  <script>
+  <div
+    id="percent"
+    class="percent">
 
-    /* Show Terms */
+    0%
 
-    function showTerms() {
+  </div>
 
-      document.getElementById("terms").style.display = "flex";
+</div>
+
+
+<!-- =========================
+     WISHLIST
+========================= -->
+
+<section id="wishlist">
+
+  <div class="wishlistBox">
+
+    <div class="wishlistHeader">
+
+      <div class="logo">
+        YAKTON
+      </div>
+
+      <h1>🎂 Birthday Wishlist</h1>
+
+      <p style="color:#888">
+        Here are the things I want for my birthday 👀
+      </p>
+
+    </div>
+
+    <div id="wishlistItems"></div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let items = [];
+
+let sharedItems = [];
+
+
+/* =========================
+   HOME
+========================= */
+
+function openCreator() {
+
+  document.getElementById("home").style.display = "none";
+
+  document.getElementById("creator").style.display = "block";
+
+}
+
+
+function goHome() {
+
+  document.getElementById("creator").style.display = "none";
+
+  document.getElementById("home").style.display = "flex";
+
+}
+
+
+/* =========================
+   ADD WISHLIST ITEM
+========================= */
+
+function addItem() {
+
+  const id = Date.now();
+
+  const div = document.createElement("div");
+
+  div.className = "wishlistItem";
+
+  div.id = "item-" + id;
+
+  div.innerHTML = `
+
+    <input
+      class="itemName"
+      placeholder="Item name">
+
+    <input
+      class="itemURL"
+      placeholder="https://example.com">
+
+    <button
+      class="remove"
+      onclick="removeItem(${id})">
+
+      ✕
+
+    </button>
+
+  `;
+
+  document.getElementById("items").appendChild(div);
+
+}
+
+
+function removeItem(id) {
+
+  const element =
+    document.getElementById("item-" + id);
+
+  if (element) {
+
+    element.remove();
+
+  }
+
+}
+
+
+/* =========================
+   GENERATE SHARE LINK
+========================= */
+
+function generateLink() {
+
+  const rows =
+    document.querySelectorAll(".wishlistItem");
+
+  items = [];
+
+  rows.forEach(function(row) {
+
+    const name =
+      row.querySelector(".itemName").value.trim();
+
+    const url =
+      row.querySelector(".itemURL").value.trim();
+
+    if (name) {
+
+      items.push({
+        name: name,
+        url: url
+      });
+
+    }
+
+  });
+
+
+  if (items.length === 0) {
+
+    alert("Add at least one wishlist item.");
+
+    return;
+
+  }
+
+
+  /*
+    Encode the wishlist into the URL.
+    This means GitHub Pages doesn't need
+    a database for basic shared lists.
+  */
+
+  const data =
+    btoa(
+      unescape(
+        encodeURIComponent(
+          JSON.stringify(items)
+        )
+      )
+    );
+
+
+  const shareURL =
+    window.location.origin +
+    window.location.pathname +
+    "?wishlist=" +
+    encodeURIComponent(data);
+
+
+  document.getElementById("shareResult")
+    .style.display = "block";
+
+  document.getElementById("shareLink")
+    .innerText = shareURL;
+
+}
+
+
+/* =========================
+   COPY LINK
+========================= */
+
+function copyLink() {
+
+  const link =
+    document.getElementById("shareLink").innerText;
+
+  navigator.clipboard.writeText(link);
+
+  alert("Wishlist link copied!");
+
+}
+
+
+/* =========================
+   SHARED WISHLIST
+========================= */
+
+function loadSharedWishlist() {
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const encoded =
+    params.get("wishlist");
+
+  if (!encoded) {
+
+    alert(
+      "Paste a shared wishlist link into your browser."
+    );
+
+    return;
+
+  }
+
+  startTerms();
+
+}
+
+
+function checkForSharedWishlist() {
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const encoded =
+    params.get("wishlist");
+
+  if (!encoded) {
+
+    return false;
+
+  }
+
+
+  try {
+
+    sharedItems =
+      JSON.parse(
+        decodeURIComponent(
+          escape(
+            atob(encoded)
+          )
+        )
+      );
+
+    return true;
+
+  }
+
+  catch {
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================
+   TERMS
+========================= */
+
+function startTerms() {
+
+  document.getElementById("terms")
+    .style.display = "flex";
+
+}
+
+
+function acceptTerms() {
+
+  document.getElementById("terms")
+    .style.display = "none";
+
+  startLoading();
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+function startLoading() {
+
+  document.getElementById("loading")
+    .style.display = "flex";
+
+
+  let progress = 0;
+
+
+  const bar =
+    document.getElementById("loadingProgress");
+
+  const percent =
+    document.getElementById("percent");
+
+  const status =
+    document.getElementById("loadingStatus");
+
+  const logo =
+    document.getElementById("yaktonLoading");
+
+
+  const messages = [
+
+    "INITIALIZING SYSTEM...",
+
+    "CONNECTING TO YAKTON...",
+
+    "LOADING BIRTHDAY ASSETS...",
+
+    "VERIFYING WISHLIST...",
+
+    "COMPILING PRESENT DATA...",
+
+    "FINALIZING EXPERIENCE..."
+
+  ];
+
+
+  const interval =
+    setInterval(function() {
+
+
+      progress +=
+        Math.floor(Math.random() * 5) + 1;
+
+
+      if (progress > 100) {
+
+        progress = 100;
+
+      }
+
+
+      bar.style.width =
+        progress + "%";
+
+
+      percent.innerText =
+        progress + "%";
+
+
+      const index =
+        Math.min(
+          Math.floor(progress / 18),
+          messages.length - 1
+        );
+
+
+      status.innerText =
+        messages[index];
+
+
+      if (progress >= 100) {
+
+        clearInterval(interval);
+
+
+        logo.style.animation = "none";
+
+        logo.classList.add("colorReveal");
+
+
+        status.innerText =
+          "SYSTEM ONLINE ✓";
+
+
+        setTimeout(function() {
+
+          showWishlist();
+
+        }, 2200);
+
+      }
+
+
+    }, 90);
+
+}
+
+
+/* =========================
+   SHOW WISHLIST
+========================= */
+
+function showWishlist() {
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+
+  document.getElementById("wishlist")
+    .style.display = "block";
+
+
+  const container =
+    document.getElementById("wishlistItems");
+
+
+  container.innerHTML = "";
+
+
+  sharedItems.forEach(function(item, index) {
+
+
+    const card =
+      document.createElement("div");
+
+    card.className = "wishCard";
+
+
+    let linkHTML = "";
+
+    if (item.url) {
+
+      linkHTML = `
+        <a
+          href="${escapeHTML(item.url)}"
+          target="_blank">
+
+          View Item →
+
+        </a>
+      `;
 
     }
 
 
-    /* Accept Terms */
+    card.innerHTML = `
 
-    function acceptTerms() {
+      <div>
 
-      document.getElementById("terms").style.display = "none";
+        <div class="wishNumber">
+          ITEM ${String(index + 1).padStart(2,"0")}
+        </div>
 
-      document.getElementById("yaktonScreen").style.display = "flex";
+        <h2>
+          ${escapeHTML(item.name)}
+        </h2>
 
-      startYakton();
+      </div>
 
-    }
+      ${linkHTML}
 
-
-    /* YAKTON Loading Animation */
-
-    function startYakton() {
-
-      let progress = 0;
-
-      const progressBar =
-        document.getElementById("progress");
-
-      const percentage =
-        document.getElementById("percentage");
-
-      const loadingText =
-        document.getElementById("loadingText");
-
-      const yakton =
-        document.getElementById("yakton");
-
-      const success =
-        document.getElementById("success");
+    `;
 
 
-      const interval = setInterval(function() {
+    container.appendChild(card);
 
-        progress += Math.floor(Math.random() * 4) + 1;
+  });
 
-        if (progress > 100) {
-          progress = 100;
-        }
+}
 
 
-        progressBar.style.width =
-          progress + "%";
+/* =========================
+   SAFETY FOR ITEM TEXT
+========================= */
+
+function escapeHTML(text) {
+
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
 
 
-        percentage.innerText =
-          progress + "%";
+/* =========================
+   INITIAL CHECK
+========================= */
 
+window.onload = function() {
 
-        /* Loading messages */
+  if (checkForSharedWishlist()) {
 
-        if (progress < 25) {
+    document.getElementById("home")
+      .style.display = "none";
 
-          loadingText.innerText =
-            "INITIALIZING YAKTON...";
+    startTerms();
 
-        }
+  }
 
-        else if (progress < 50) {
+};
 
-          loadingText.innerText =
-            "LOADING ASSETS...";
-
-        }
-
-        else if (progress < 75) {
-
-          loadingText.innerText =
-            "COMPILING BIRTHDAY FILES...";
-
-        }
-
-        else if (progress < 100) {
-
-          loadingText.innerText =
-            "FINALIZING...";
-
-        }
-
-        else {
-
-          loadingText.innerText =
-            "SYSTEM READY";
-
-        }
-
-
-        /* Finished */
-
-        if (progress >= 100) {
-
-          clearInterval(interval);
-
-          /* Stop flickering */
-
-          yakton.style.animation = "none";
-
-          /* Make YAKTON colorful */
-
-          yakton.classList.add("fullColor");
-
-
-          setTimeout(function() {
-
-            success.style.display = "block";
-
-          }, 1000);
-
-
-          /* Go to Amazon */
-
-          setTimeout(function() {
-
-            window.location.href =
-              "https://a.co/d/0aNtFElq";
-
-          }, 3000);
-
-        }
-
-      }, 100);
-
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
